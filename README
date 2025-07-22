@@ -1,0 +1,55 @@
+Este proyecto consiste en el desarrollo de un servidor en Node.js y Express que permite gestionar productos y carritos, con persistencia en archivos JSON.
+
+🚀 Tecnologías utilizadas
+Node.js
+
+Express
+
+File System (fs.promises)
+
+Postman (para pruebas de endpoints)
+
+📁 Estructura del proyecto
+
+/entrega1
+├── products.json
+├── carts.json
+├── README.md
+├── package.json
+├── .gitignore
+└── src/
+├── app.js
+├── routes/
+│ ├── products.router.js
+│ └── carts.router.js
+└── managers/
+├── ProductManager.js
+└── CartManager.js
+📦 Endpoints
+🔹 Productos (/api/products)
+Método Ruta Descripción
+GET / Lista todos los productos
+GET /:pid Trae un producto por ID
+POST / Crea un nuevo producto
+PUT /:pid Actualiza campos del producto (excepto ID)
+DELETE /:pid Elimina producto por ID
+
+📌 Body esperado en POST:
+
+json
+
+{
+"title": "string",
+"description": "string",
+"code": "string",
+"price": number,
+"status": boolean,
+"stock": number,
+"category": "string",
+"thumbnails": ["string"]
+}
+🔹 Carritos (/api/carts)
+Método Ruta Descripción
+POST / Crea un nuevo carrito vacío
+GET /:cid Muestra el contenido de un carrito
+POST /:cid/product/:pid Agrega producto al carrito (o incrementa cantidad si ya está)
