@@ -49,6 +49,12 @@ io.on("connection", async (socket) => {
     const productosActualizados = await manager.getProducts();
     io.emit("productosActualizados", productosActualizados);
   });
+
+  socket.on("eliminarProducto", async (id) => {
+    await manager.deleteProduct(id);
+    const productosActualizados = await manager.getProducts();
+    io.emit("productosActualizados", productosActualizados);
+  });
 });
 
 // 🔥 Acá usás PORT

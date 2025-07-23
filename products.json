@@ -55,5 +55,16 @@
     "id": 1753226332983,
     "title": "hola",
     "price": 455
+  },
+  {
+    "id": 1753289110125,
+    "title": "pelota",
+    "description": "negra",
+    "code": "444ddddd",
+    "price": 12200,
+    "status": true,
+    "stock": 120,
+    "category": "vestimenta",
+    "thumbnails": "hhtdddddrrr"
   }
 ]

@@ -19,12 +19,8 @@ class ProductManager {
   async addProduct(productData) {
     try {
       const products = await this.getProducts();
-      // TEMPORAL para probar con WebSocket
-      if (!productData.title || !productData.price) {
-        return { error: "Faltan título o precio" };
-      }
 
-      /* // Validar campos requeridos
+      // Validar campos requeridos
       const requiredFields = [
         "title",
         "description",
@@ -41,13 +37,13 @@ class ProductManager {
       if (!hasAllFields) {
         return { error: "Todos los campos son obligatorios" };
       }
- */
+
       // Verificar que no haya otro producto con el mismo código
-      /*   const codeExists = products.some((p) => p.code === productData.code);
+      const codeExists = products.some((p) => p.code === productData.code);
       if (codeExists) {
         return { error: "Ya existe un producto con ese código" };
       }
- */
+
       // Generar ID único
       const newProduct = {
         id: Date.now(),

@@ -18,17 +18,31 @@ const form = document.getElementById("product-form");
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  console.log("📝 Submit capturado");
+  const nuevoProducto = {
+    title: document.getElementById("title").value,
+    description: document.getElementById("description").value,
+    code: document.getElementById("code").value,
+    price: parseFloat(document.getElementById("price").value),
+    status: document.getElementById("status").value === "true",
+    stock: parseInt(document.getElementById("stock").value),
+    category: document.getElementById("category").value,
+    thumbnails: document.getElementById("thumbnails").value,
+  };
 
-  const title = document.getElementById("title").value.trim();
-  const price = parseFloat(document.getElementById("price").value);
-
-  console.log("📤 Enviando producto vía socket:", { title, price });
-
-  if (title && !isNaN(price)) {
-    socket.emit("nuevoProducto", { title, price });
+  // Validación básica por si se rompe algo
+  if (nuevoProducto.title && !isNaN(nuevoProducto.price)) {
+    socket.emit("nuevoProducto", nuevoProducto);
     form.reset();
-  } else {
-    console.warn("⚠️ Datos inválidos");
+  }
+});
+const deleteForm = document.getElementById("delete-form");
+deleteForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const id = document.getElementById("deleteId").value;
+
+  if (id) {
+    socket.emit("eliminarProducto", id);
+    deleteForm.reset();
   }
 });
