@@ -1,7 +1,8 @@
-const express = require("express");
-const path = require("path");
-const ProductManager = require("../managers/productManager");
-const router = express.Router();
+import { Router } from "express";
+import path from "path";
+import ProductManager from "../managers/productManager.js";
+
+const router = Router();
 // con PATH.RESOLVE se obtiene la ruta absoluta del archivo products.json
 //se evita errores al usar rutas relativas
 const productManager = new ProductManager(path.resolve("products.json"));
@@ -32,7 +33,7 @@ router.post("/", async (req, res) => {
 // ------Esta ruta obtiene un producto por su ID
 router.get("/:pid", async (req, res) => {
   try {
-    const id = req.params.pid;
+    const id = Number(req.params.pid);
     const product = await productManager.getProductById(id);
 
     if (!product) {
@@ -50,7 +51,7 @@ router.get("/:pid", async (req, res) => {
 // ------Esta ruta actualiza un producto por su ID
 router.put("/:pid", async (req, res) => {
   try {
-    const id = req.params.pid;
+    const id = Number(req.params.pid);
     const updateData = req.body;
 
     const result = await productManager.updateProduct(id, updateData);
@@ -68,7 +69,7 @@ router.put("/:pid", async (req, res) => {
 // ------Esta ruta elimina un producto por su ID
 router.delete("/:pid", async (req, res) => {
   try {
-    const id = req.params.pid;
+    const id = Number(req.params.pid);
     const result = await productManager.deleteProduct(id);
 
     if (result.error) {
@@ -82,4 +83,4 @@ router.delete("/:pid", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

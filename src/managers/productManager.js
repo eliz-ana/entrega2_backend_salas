@@ -1,9 +1,9 @@
-const fs = require("fs").promises;
-const path = require("path");
+import { promises as fs } from "fs";
+import path from "path";
 
 class ProductManager {
   constructor(filePath) {
-    this.filePath = filePath;
+    this.filePath = path.resolve(filePath);
   }
 
   async getProducts() {
@@ -19,8 +19,12 @@ class ProductManager {
   async addProduct(productData) {
     try {
       const products = await this.getProducts();
+      // TEMPORAL para probar con WebSocket
+      if (!productData.title || !productData.price) {
+        return { error: "Faltan título o precio" };
+      }
 
-      // Validar campos requeridos
+      /* // Validar campos requeridos
       const requiredFields = [
         "title",
         "description",
@@ -37,13 +41,13 @@ class ProductManager {
       if (!hasAllFields) {
         return { error: "Todos los campos son obligatorios" };
       }
-
+ */
       // Verificar que no haya otro producto con el mismo código
-      const codeExists = products.some((p) => p.code === productData.code);
+      /*   const codeExists = products.some((p) => p.code === productData.code);
       if (codeExists) {
         return { error: "Ya existe un producto con ese código" };
       }
-
+ */
       // Generar ID único
       const newProduct = {
         id: Date.now(),
@@ -61,8 +65,9 @@ class ProductManager {
   // --------------- obtiene un producto por su ID
   async getProductById(id) {
     try {
+      const numberId = Number(id);
       const products = await this.getProducts();
-      const product = products.find((p) => p.id == id);
+      const product = products.find((p) => p.id === numberId);
       return product || null;
     } catch (error) {
       console.error("Error al obtener producto por ID:", error);
@@ -72,8 +77,9 @@ class ProductManager {
   // --------------- Actualiza un producto por su ID
   async updateProduct(id, updateData) {
     try {
+      const numberId = Number(id);
       const products = await this.getProducts();
-      const index = products.findIndex((p) => p.id == id);
+      const index = products.findIndex((p) => p.id === numberId);
 
       if (index === -1) {
         return { error: `Producto con ID ${id} no encontrado` };
@@ -104,8 +110,9 @@ class ProductManager {
   // --------------- Elimina un producto por su ID
   async deleteProduct(id) {
     try {
+      const numberId = Number(id);
       const products = await this.getProducts();
-      const index = products.findIndex((p) => p.id == id);
+      const index = products.findIndex((p) => p.id === numberId);
 
       if (index === -1) {
         return { error: `No se encontró un producto con ID ${id}` };
@@ -122,4 +129,4 @@ class ProductManager {
   }
 }
 
-module.exports = ProductManager;
+export default ProductManager;

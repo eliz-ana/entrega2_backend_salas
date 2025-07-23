@@ -1,0 +1,24 @@
+<h1>Bienvenido a la segunda entrega</h1>
+<h2>Lista de productos en tiempo real</h2>
+
+<ul id="product-list">
+  {{#each products}}
+    <li><strong>{{title}}</strong> - ${{price}}</li>
+  {{/each}}
+</ul>
+
+<hr />
+
+<h3>Agregar producto</h3>
+<form id="product-form">
+  <label for="title">Título:</label>
+  <input type="text" id="title" name="title" required />
+
+  <label for="price">Precio:</label>
+  <input type="number" id="price" name="price" required />
+
+  <button type="submit">Agregar</button>
+</form>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/realTimeClient.js"></script>

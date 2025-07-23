@@ -37,5 +37,23 @@
     "thumbnails": [
       "img/zapatilla1.png"
     ]
+  },
+  {
+    "id": 1753224933509,
+    "title": "Auriculares Gamer",
+    "description": "Con micrófono y luces LED",
+    "code": "AUR123",
+    "price": 8500,
+    "status": true,
+    "stock": 25,
+    "category": "tecnología",
+    "thumbnails": [
+      "auriculares.png"
+    ]
+  },
+  {
+    "id": 1753226332983,
+    "title": "hola",
+    "price": 455
   }
 ]

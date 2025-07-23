@@ -1,11 +1,13 @@
-const fs = require("fs").promises;
-const path = require("path");
-const ProductManager = require("./productManager");
-const productManager = new ProductManager(path.resolve("products.json"));
+import { promises as fs } from "fs";
+import { resolve } from "path";
+import ProductManager from "./productManager.js";
+
+//instancia de ProductManager para usar sus métodos
+const productManager = new ProductManager(resolve("products.json"));
 
 class CartManager {
   constructor(filePath) {
-    this.filePath = filePath;
+    this.filePath = resolve(filePath);
   }
 
   async getCarts() {
@@ -38,7 +40,7 @@ class CartManager {
   async getCartById(id) {
     try {
       const carts = await this.getCarts();
-      const cart = carts.find((c) => c.id == id);
+      const cart = carts.find((c) => c.id === Number(id));
       return cart || null;
     } catch (error) {
       console.error("Error al obtener carrito por ID:", error);
@@ -75,4 +77,4 @@ class CartManager {
   }
 }
 
-module.exports = CartManager;
+export default CartManager;
